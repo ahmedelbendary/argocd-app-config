@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/ahmedelbendary/argocd-app-config.git
     targetRevision: HEAD
-    path: mgmt-tools/keycloak
+    path: ./app-of-apps/manifests/keycloak
   destination: 
     server: https://kubernetes.default.svc
     namespace: keycloak
