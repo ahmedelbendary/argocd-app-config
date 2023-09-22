@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: myapp-dev
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
 
@@ -15,8 +17,9 @@ spec:
     namespace: myapp-dev
 
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
+    # syncOptions:
+    # - CreateNamespace=true
+    # - DeleteNamespace=true Not exist yet
     automated:
       selfHeal: true
       prune: true
