@@ -19,7 +19,7 @@ spec:
   syncPolicy:
     # syncOptions:
     # - CreateNamespace=true
-    # - DeleteNamespace=true Not exist yet
+    # - DeleteNamespace=true Not exist yet https://github.com/argoproj/argo-cd/pull/11821
     automated:
       selfHeal: true
       prune: true
