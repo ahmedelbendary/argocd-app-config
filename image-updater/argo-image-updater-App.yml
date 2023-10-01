@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fluentd
+  name: argo-image-updater
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   # Add a this finalizer ONLY if you want these to cascade delete.
@@ -15,18 +15,18 @@ spec:
   source:
     repoURL: https://github.com/ahmedelbendary/argocd-app-config.git
     targetRevision: HEAD
-    path: ./app-of-apps/manifests/fluentd
+    path: ./image-updater/controller
    
   # Destination cluster and namespace to deploy the application
   destination:
     server: https://kubernetes.default.svc
-    namespace: fluentd
+    namespace: argocd
 
   # Sync policy
   syncPolicy:
     syncOptions:
       - CreateNamespace=true  
-    # automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-    #   prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-    #   selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
   

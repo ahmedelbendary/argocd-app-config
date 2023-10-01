@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: follow-semver02
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/ahmedelbendary/argocd-app-config:~1
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ahmedelbendary/argocd-app-config.git
+    targetRevision: HEAD
+    path: ./image-updater/example-app/envs/prod/
+   
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+
+  # Sync policy
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true  
+   
